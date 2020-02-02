@@ -11,6 +11,11 @@ public class Dealer {
     }
     public void addCard(Card card){
         hand.add(card);
+        UI.printDealerCard(card);
+    }
+
+    public void printDealerCard(){
+        UI.repeatDealerCard(this.hand.get(0));
     }
 
     public int getHandTotal(){
@@ -32,7 +37,14 @@ public class Dealer {
         UI.turnHoleCard(holeCard);
     }
 
+    public boolean checkBust(){
+        return (this.getHandTotal() > 21);
+    }
 
+    public void dealerBust() {
+        UI.dealerBust(this.getHandTotal());
+        this.hand.clear();
+    }
 }
 
 

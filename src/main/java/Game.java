@@ -5,7 +5,6 @@ public class Game {
     private Deck deck;
     private Dealer dealer;
     private ArrayList<Player> players;
-    private boolean isRunning;
     private int numPlayers;
     private boolean dealerWins;
 
@@ -24,7 +23,6 @@ public class Game {
         dealerWins = false;
         deck = new Deck();
         deck.shuffleDeck();
-        this.isRunning = true;
     }
 
     public void dealCards(){
@@ -44,7 +42,6 @@ public class Game {
     public void dealersCard(){
         Card card = this.deck.dealCard();
         this.dealer.addCard(card);
-        UI.printDealerCard(card);
     }
 
     public void dealHoleCard(){
@@ -52,12 +49,13 @@ public class Game {
         this.dealer.getHoleCard(holeCard);
     }
 
-    public void playerTurn(){
+    public void playerTurns(){
         for(int i = 0; i < players.size(); i++){
             Player currentPlayer = this.players.get(i);
             UI.startTurn(currentPlayer.getName());
             boolean stillPlaying = true;
             while (stillPlaying == true){
+                this.dealer.printDealerCard();
             if (currentPlayer.twistStick()) {
                 currentPlayer.addCard(this.deck.dealCard());
                 if (currentPlayer.checkBust()){
@@ -70,8 +68,23 @@ public class Game {
                 }
             }
         }
-//        this.dealer.dealerTurn();
     }
+
+    public void dealerTurn(){
+        dealer.printDealerCard();
+        dealer.turnHoleCard();
+        int dealerTotal = dealer.getHandTotal();
+        while (dealerTotal < 16){
+            dealer.addCard(this.deck.dealCard());
+            dealerTotal = dealer.getHandTotal();
+        }
+        if (dealer.checkBust()) {
+            dealer.dealerBust();
+        } else {
+            UI.dealerSticks(dealerTotal);
+        }
+    }
+
 
 
     public int calculateHighestHand(){
@@ -112,12 +125,12 @@ public class Game {
 
     public void run(){
 
-//        while(this.isRunning){
 
             dealCards();
-            playerTurn();
+            playerTurns();
+            dealerTurn();
             findWinners();
-//        }
+        }
 
-    }
+
 }

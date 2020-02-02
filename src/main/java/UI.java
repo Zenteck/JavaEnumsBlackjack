@@ -32,9 +32,7 @@ public class UI {
         System.out.println(name + " has been dealt a " + card.getRank() + " of " + card.getSuit());
     }
 
-    public static void printDealerCard(Card card){
-        System.out.println("Dealer draws a " + card.getRank() + " of " + card.getSuit());
-    }
+
 
     public static void startTurn(String name){
         System.out.println("\n" + name + " press Enter to start your turn");
@@ -59,14 +57,32 @@ public class UI {
         System.out.println(name + " has gone bust with a total of " + total);
     }
 
+    public static void declareBlackjack(String name) {
+        System.out.println(name + " has blackjack!");
+    }
 
-    public static void turnHoleCard(Card card){
+    //dealer
+
+    public static void printDealerCard(Card card){
+        System.out.println("Dealer draws a " + card.getRank() + " of " + card.getSuit());
+    }
+
+    public static void repeatDealerCard(Card card){
         System.out.println("Dealer has a " + card.getRank() + " of " + card.getSuit());
     }
 
-    public static void declareBlackjack(String name) {
-        System.out.println("Blackjack for " + name + "!");
+    public static void turnHoleCard(Card card){
+        System.out.println("Dealer turns over a " + card.getRank() + " of " + card.getSuit());
     }
+
+    public static void dealerSticks(int dealerTotal){
+        System.out.println("Dealer sticks on " + dealerTotal);
+    }
+
+    public static void dealerBust(int dealerTotal){
+        System.out.println("Dealer is bust with " + dealerTotal + "!");
+    }
+
 
     public static void declareWinner(ArrayList<Player> players, boolean dealerWins) {
         if (dealerWins == true) {
