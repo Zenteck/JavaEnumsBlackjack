@@ -13,6 +13,7 @@ public class Player {
 
     public void addCard(Card card){
         hand.add(card);
+        UI.printCard(card, this.name);
     }
 
     public String getName() {
@@ -23,18 +24,21 @@ public class Player {
         int total = 0;
         for(Card card : this.hand){
             total += card.getValueFromEnum();
-            System.out.println(total);
         }
         return total;
     }
 
     public boolean twistStick(){
-        String decision = UI.twistStick(this.name, this.getHandTotal());
-        if(decision == "y"){
-            return true;
-        }
-        else {
-            return false;
-        }
+        return UI.twistStick(this.name, this.getHandTotal());
     }
+
+    public boolean checkBust(){
+        return (this.getHandTotal() > 21);
+    }
+
+    public void playerBust(){
+        UI.playerBust(this.name, this.getHandTotal());
+        this.hand.clear();
+    }
+
 }

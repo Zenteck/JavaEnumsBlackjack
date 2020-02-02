@@ -32,13 +32,11 @@ public class Game {
         for(int i = 0; i < players.size(); i++){
             Card dealtCard = this.deck.dealCard();
             this.players.get(i).addCard(dealtCard);
-            UI.printCard(dealtCard, this.players.get(i).getName());
         }
         this.dealersCard();
         for(int i = 0; i < players.size(); i++){
             Card dealtCard = this.deck.dealCard();
             this.players.get(i).addCard(dealtCard);
-            UI.printCard(dealtCard, this.players.get(i).getName());
         }
         this.dealHoleCard();
     }
@@ -60,15 +58,19 @@ public class Game {
             UI.startTurn(currentPlayer.getName());
             boolean stillPlaying = true;
             while (stillPlaying == true){
-            boolean decision = currentPlayer.twistStick();
-            if (decision == true) {
+            if (currentPlayer.twistStick()) {
                 currentPlayer.addCard(this.deck.dealCard());
+                if (currentPlayer.checkBust()){
+                    currentPlayer.playerBust();
+                    stillPlaying = false;
+                }
                 }
             else {
                stillPlaying = false;
                 }
             }
         }
+//        this.dealer.dealerTurn();
     }
 
 

@@ -42,16 +42,30 @@ public class UI {
         sc.nextLine();
     }
 
-    public static String twistStick(String name, int total){
-        System.out.println(name + "! Your total is " + total + " Will you stick (press n) or twist (press y)?");
+    public static boolean twistStick(String name, int total){
+        System.out.println(name + "! Your total is " + total + " Will you twist (press y) or stick (any other button)?");
         Scanner scan = new Scanner(System.in);
-        String decision = scan.nextLine();
-        return decision;
+        String twist = "y";
+//        String stick = "n";
+        if (scan.next().equalsIgnoreCase(twist)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static void playerBust(String name, int total){
+        System.out.println(name + " has gone bust with a total of " + total);
     }
 
 
     public static void turnHoleCard(Card card){
         System.out.println("Dealer has a " + card.getRank() + " of " + card.getSuit());
+    }
+
+    public static void declareBlackjack(String name) {
+        System.out.println("Blackjack for " + name + "!");
     }
 
     public static void declareWinner(ArrayList<Player> players, boolean dealerWins) {
@@ -65,5 +79,7 @@ public class UI {
     public static void displayDraw(ArrayList<Player> players){
         //for
     }
+
+
 
 }
