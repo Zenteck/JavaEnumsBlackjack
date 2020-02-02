@@ -22,8 +22,8 @@ public class UI {
     }
 
 
-    public static void dealCard(){
-        System.out.println("\nPress Enter to deal a card");
+    public static void dealCards(){
+        System.out.println("\nPress Enter to deal the cards");
         Scanner sc = new Scanner(System.in);
         sc.nextLine();
     }
@@ -35,6 +35,20 @@ public class UI {
     public static void printDealerCard(Card card){
         System.out.println("Dealer draws a " + card.getRank() + " of " + card.getSuit());
     }
+
+    public static void startTurn(String name){
+        System.out.println("\n" + name + " press Enter to start your turn");
+        Scanner sc = new Scanner(System.in);
+        sc.nextLine();
+    }
+
+    public static String twistStick(String name, int total){
+        System.out.println(name + "! Your total is " + total + " Will you stick (press n) or twist (press y)?");
+        Scanner scan = new Scanner(System.in);
+        String decision = scan.nextLine();
+        return decision;
+    }
+
 
     public static void turnHoleCard(Card card){
         System.out.println("Dealer has a " + card.getRank() + " of " + card.getSuit());

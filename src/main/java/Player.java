@@ -21,11 +21,20 @@ public class Player {
 
     public int getHandTotal(){
         int total = 0;
-
         for(Card card : this.hand){
-            total += card.getRank().getValue();
+            total += card.getValueFromEnum();
+            System.out.println(total);
         }
-
         return total;
+    }
+
+    public boolean twistStick(){
+        String decision = UI.twistStick(this.name, this.getHandTotal());
+        if(decision == "y"){
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 }

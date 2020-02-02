@@ -7,7 +7,7 @@ public class Game {
     private ArrayList<Player> players;
     private boolean isRunning;
     private int numPlayers;
-    public boolean dealerWins;
+    private boolean dealerWins;
 
     public Game(){
 
@@ -20,7 +20,6 @@ public class Game {
         for(int i = 0; i < numPlayers; i++){
             players.add(new Player(UI.getPlayerName()));
         }
-
         dealer = new Dealer();
         dealerWins = false;
         deck = new Deck();
@@ -29,22 +28,47 @@ public class Game {
     }
 
     public void dealCards(){
-
+        UI.dealCards();
         for(int i = 0; i < players.size(); i++){
-            UI.dealCard();
             Card dealtCard = this.deck.dealCard();
             this.players.get(i).addCard(dealtCard);
             UI.printCard(dealtCard, this.players.get(i).getName());
-            this.dealersCards();
         }
+        this.dealersCard();
+        for(int i = 0; i < players.size(); i++){
+            Card dealtCard = this.deck.dealCard();
+            this.players.get(i).addCard(dealtCard);
+            UI.printCard(dealtCard, this.players.get(i).getName());
+        }
+        this.dealHoleCard();
     }
 
-    public void dealersCards(){
-        Card firstCard = this.deck.dealCard();
-        this.dealer.addCard(firstCard);
+    public void dealersCard(){
+        Card card = this.deck.dealCard();
+        this.dealer.addCard(card);
+        UI.printDealerCard(card);
+    }
+
+    public void dealHoleCard(){
         Card holeCard = this.deck.dealCard();
         this.dealer.getHoleCard(holeCard);
-        UI.printDealerCard(firstCard);
+    }
+
+    public void playerTurn(){
+        for(int i = 0; i < players.size(); i++){
+            Player currentPlayer = this.players.get(i);
+            UI.startTurn(currentPlayer.getName());
+            boolean stillPlaying = true;
+            while (stillPlaying == true){
+            boolean decision = currentPlayer.twistStick();
+            if (decision == true) {
+                currentPlayer.addCard(this.deck.dealCard());
+                }
+            else {
+               stillPlaying = false;
+                }
+            }
+        }
     }
 
 
@@ -78,7 +102,7 @@ public class Game {
 
         if(winningPlayers.size() > 1){
             UI.displayDraw(winningPlayers);
-        }else{
+        } else {
             UI.declareWinner(winningPlayers, this.dealerWins);
         }
 
@@ -86,11 +110,12 @@ public class Game {
 
     public void run(){
 
-        while(this.isRunning){
+//        while(this.isRunning){
 
             dealCards();
+            playerTurn();
             findWinners();
+//        }
 
-        }
     }
 }
