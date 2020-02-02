@@ -53,6 +53,19 @@ public class UI {
         }
     }
 
+    public static boolean changeAce(String name, int total){
+        System.out.println(name + " Your total is " + total + " One of your cards is an Ace. Play this ace high (press y)?");
+        Scanner scan2 = new Scanner(System.in);
+        String yes = "y";
+        if (scan2.next().equalsIgnoreCase(yes)){
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
     public static void playerBust(String name, int total){
         System.out.println(name + " has gone bust with a total of " + total);
     }
@@ -82,7 +95,6 @@ public class UI {
     public static void dealerBust(int dealerTotal){
         System.out.println("Dealer is bust with " + dealerTotal + "!");
     }
-
 
     public static void declareWinner(String name,  int total) {
         System.out.println(name + " is a winner with " + total + "!");

@@ -56,16 +56,16 @@ public class Game {
             boolean stillPlaying = true;
             while (stillPlaying == true){
                 this.dealer.printDealerCard();
+                currentPlayer.checkForAce();
             if (currentPlayer.twistStick()) {
                 currentPlayer.addCard(this.deck.dealCard());
-                if (currentPlayer.checkBust()){
-                    currentPlayer.playerBust();
-                    this.players.remove(currentPlayer);
-                    stillPlaying = false;
-                }
-                }
-            else {
-               stillPlaying = false;
+            } else {
+                stillPlaying = false;
+            }
+            if (currentPlayer.checkBust()) {
+                currentPlayer.playerBust();
+                this.players.remove(currentPlayer);
+                stillPlaying = false;
                 }
             }
         }
