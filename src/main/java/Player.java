@@ -38,7 +38,6 @@ public class Player {
 
     public void playerBust(){
         UI.playerBust(this.name, this.getHandTotal());
-        this.hand.clear();
     }
 
 }

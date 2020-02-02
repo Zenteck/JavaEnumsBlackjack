@@ -43,7 +43,6 @@ public class Dealer {
 
     public void dealerBust() {
         UI.dealerBust(this.getHandTotal());
-        this.hand.clear();
     }
 }
 

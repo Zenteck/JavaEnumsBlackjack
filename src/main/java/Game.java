@@ -60,6 +60,7 @@ public class Game {
                 currentPlayer.addCard(this.deck.dealCard());
                 if (currentPlayer.checkBust()){
                     currentPlayer.playerBust();
+                    this.players.remove(currentPlayer);
                     stillPlaying = false;
                 }
                 }
@@ -73,58 +74,48 @@ public class Game {
     public void dealerTurn(){
         dealer.printDealerCard();
         dealer.turnHoleCard();
-        int dealerTotal = dealer.getHandTotal();
-        while (dealerTotal < 16){
-            dealer.addCard(this.deck.dealCard());
-            dealerTotal = dealer.getHandTotal();
-        }
-        if (dealer.checkBust()) {
-            dealer.dealerBust();
-        } else {
-            UI.dealerSticks(dealerTotal);
-        }
-    }
-
-
-
-    public int calculateHighestHand(){
-
-        int highestHand = 0;
-
-        for (Player player: this.players){
-            if(player.getHandTotal() > highestHand){
-                highestHand = player.getHandTotal();
+        if (players.size() > 0) {
+            int dealerTotal = dealer.getHandTotal();
+            while (dealerTotal < 16) {
+                dealer.addCard(this.deck.dealCard());
+                dealerTotal = dealer.getHandTotal();
+            }
+            if (dealer.checkBust()) {
+                dealer.dealerBust();
+            } else {
+                UI.dealerSticks(dealerTotal);
             }
         }
-        if(dealer.getHandTotal() > highestHand){
-            highestHand = dealer.getHandTotal();
-            this.dealerWins = true;
-        }
-        return highestHand;
     }
+    
 
     public void findWinners(){
 
-        ArrayList<Player> winningPlayers = new ArrayList<Player>();
+        boolean dealerBust = dealer.checkBust();
+        int dealerTotal = dealer.getHandTotal();
 
-        int winningHand = calculateHighestHand();
-
-        for (Player player: this.players){
-            if(player.getHandTotal() == winningHand){
-                winningPlayers.add(player);
+        if(dealerBust){
+            for(int i = 0; i < players.size(); i++) {
+                Player currentPlayer = this.players.get(i);
+                UI.declareWinner(currentPlayer.getName(), currentPlayer.getHandTotal());
+            }
+        } else {
+            for (int i = 0; i < players.size(); i++) {
+                Player currentPlayer = this.players.get(i);
+                if (currentPlayer.getHandTotal() > dealerTotal) {
+                    UI.declareWinner(currentPlayer.getName(), currentPlayer.getHandTotal());
+                } else {
+                    if (currentPlayer.getHandTotal() == dealerTotal) {
+                        UI.declareDraw(currentPlayer.getName(), currentPlayer.getHandTotal());
+                    } else {
+                        UI.declareLoss(currentPlayer.getName(), currentPlayer.getHandTotal());
+                    }
+                }
             }
         }
-
-        if(winningPlayers.size() > 1){
-            UI.displayDraw(winningPlayers);
-        } else {
-            UI.declareWinner(winningPlayers, this.dealerWins);
-        }
-
     }
 
     public void run(){
-
 
             dealCards();
             playerTurns();

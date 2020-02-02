@@ -84,18 +84,15 @@ public class UI {
     }
 
 
-    public static void declareWinner(ArrayList<Player> players, boolean dealerWins) {
-        if (dealerWins == true) {
-            System.out.println("Dealer wins!");
-        } else {
-            System.out.println(players.get(0).getName() + " wins");
-        }
+    public static void declareWinner(String name,  int total) {
+        System.out.println(name + " is a winner with " + total + "!");
     }
 
-    public static void displayDraw(ArrayList<Player> players){
-        //for
+    public static void declareDraw(String name, int total) {
+        System.out.println(name + " breaks even on " + total);
     }
 
-
-
+    public static void declareLoss(String name, int total) {
+        System.out.println(name + " loses with " + total);
+    }
 }
