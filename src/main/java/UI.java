@@ -41,7 +41,7 @@ public class UI {
     }
 
     public static boolean twistStick(String name, int total){
-        System.out.println(name + "! Your total is " + total + " Will you twist (press y) or stick (any other button)?");
+        System.out.println(name + " your total is " + total + " Will you twist (press y) or stick (any other button)?");
         Scanner scan = new Scanner(System.in);
         String twist = "y";
 //        String stick = "n";
@@ -54,7 +54,7 @@ public class UI {
     }
 
     public static boolean changeAce(String name, int total){
-        System.out.println(name + " Your total is " + total + " One of your cards is an Ace. Play this ace high (press y)?");
+        System.out.println(name + " one of your cards is an Ace. Your total is " + total + " Play this ace high (press y)?");
         Scanner scan2 = new Scanner(System.in);
         String yes = "y";
         if (scan2.next().equalsIgnoreCase(yes)){

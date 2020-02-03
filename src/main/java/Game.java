@@ -75,8 +75,10 @@ public class Game {
         dealer.printDealerCard();
         dealer.turnHoleCard();
         if (players.size() > 0) {
+            dealer.checkForAce();
             int dealerTotal = dealer.getHandTotal();
             while (dealerTotal < 16) {
+                dealer.checkForAce();
                 dealer.addCard(this.deck.dealCard());
                 dealerTotal = dealer.getHandTotal();
             }
