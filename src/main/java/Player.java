@@ -46,7 +46,7 @@ public class Player {
     public void checkForAce() {
         if (aceHigh == 0) {
             for (Card card : this.hand) {
-                if (card.getRank() == Rank.ACE) {
+                if (card.getRank() == Rank.ACE && this.getHandTotal() < 12) {
                     if (UI.changeAce(this.name, this.getHandTotal())) {
                         this.aceHigh += 10;
                     }
